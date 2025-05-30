@@ -1,13 +1,81 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import PhoneContainer from '../components/PhoneContainer';
+import MoodSelection from '../components/MoodSelection';
+import HomeDashboard from '../components/HomeDashboard';
+import AIPlanner from '../components/AIPlanner';
+import MoodJournal from '../components/MoodJournal';
+import SmartFilter from '../components/SmartFilter';
+import BurnoutShield from '../components/BurnoutShield';
+import BottomNavigation from '../components/BottomNavigation';
+import FloatingActionButton from '../components/FloatingActionButton';
 
 const Index = () => {
+  const [currentPage, setCurrentPage] = useState('mood-selection');
+  const [activeTab, setActiveTab] = useState('home');
+  const [userMood, setUserMood] = useState('😊');
+  const [stressLevel, setStressLevel] = useState(70);
+
+  const handleMoodSelect = (mood: string, stressValue: number) => {
+    setUserMood(mood);
+    setStressLevel(stressValue);
+    setCurrentPage('home');
+  };
+
+  const handleNavigation = (page: string) => {
+    setCurrentPage(page);
+  };
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    if (tab === 'home') {
+      setCurrentPage('home');
+    } else if (tab === 'journal') {
+      setCurrentPage('mood-journal');
+    }
+  };
+
+  const renderCurrentPage = () => {
+    switch (currentPage) {
+      case 'mood-selection':
+        return <MoodSelection onMoodSelect={handleMoodSelect} />;
+      case 'home':
+        return (
+          <HomeDashboard 
+            mood={userMood} 
+            stressLevel={stressLevel} 
+            onNavigate={handleNavigation}
+          />
+        );
+      case 'ai-planner':
+        return <AIPlanner onBack={() => setCurrentPage('home')} />;
+      case 'mood-journal':
+        return <MoodJournal onBack={() => setCurrentPage('home')} />;
+      case 'smart-filter':
+        return <SmartFilter onBack={() => setCurrentPage('home')} />;
+      case 'burnout-shield':
+        return <BurnoutShield onBack={() => setCurrentPage('home')} />;
+      default:
+        return <MoodSelection onMoodSelect={handleMoodSelect} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <PhoneContainer>
+      <div className="relative h-full">
+        {renderCurrentPage()}
+        
+        {currentPage !== 'mood-selection' && (
+          <>
+            <FloatingActionButton />
+            <BottomNavigation 
+              activeTab={activeTab} 
+              onTabChange={handleTabChange}
+            />
+          </>
+        )}
       </div>
-    </div>
+    </PhoneContainer>
   );
 };
 
