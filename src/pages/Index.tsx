@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import PhoneContainer from '../components/PhoneContainer';
 import MoodSelection from '../components/MoodSelection';
@@ -48,7 +47,7 @@ const Index = () => {
           />
         );
       case 'ai-planner':
-        return <AIPlanner onBack={() => setCurrentPage('home')} />;
+        return <AIPlanner onBack={() => setCurrentPage('home')} mood={userMood} stressLevel={stressLevel} />;
       case 'mood-journal':
         return <MoodJournal onBack={() => setCurrentPage('home')} mood={userMood} stressLevel={stressLevel} />;
       case 'smart-filter':
