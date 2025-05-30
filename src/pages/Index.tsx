@@ -50,7 +50,7 @@ const Index = () => {
       case 'ai-planner':
         return <AIPlanner onBack={() => setCurrentPage('home')} />;
       case 'mood-journal':
-        return <MoodJournal onBack={() => setCurrentPage('home')} />;
+        return <MoodJournal onBack={() => setCurrentPage('home')} mood={userMood} stressLevel={stressLevel} />;
       case 'smart-filter':
         return <SmartFilter onBack={() => setCurrentPage('home')} />;
       case 'burnout-shield':

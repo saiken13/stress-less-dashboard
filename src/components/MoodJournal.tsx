@@ -3,15 +3,34 @@ import React from 'react';
 
 interface MoodJournalProps {
   onBack: () => void;
+  mood: string;
+  stressLevel: number;
 }
 
-const MoodJournal = ({ onBack }: MoodJournalProps) => {
-  const activities = [
+const MoodJournal = ({ onBack, mood, stressLevel }: MoodJournalProps) => {
+  const isStressed = stressLevel <= 30; // High stress when value is low
+  
+  const stressedActivities = [
     { icon: '🎮', title: 'Play Games', description: 'Relax with your favorite games' },
+    { icon: '🏋️', title: 'Do Gym', description: 'Release stress through exercise' },
     { icon: '📞', title: 'Call Loved Ones', description: 'Connect with family and friends' },
     { icon: '🧘', title: 'Meditate', description: 'Find inner peace and calm' },
-    { icon: '🍳', title: 'Cook Something', description: 'Express creativity through cooking' }
+    { icon: '🍳', title: 'Cook Something', description: 'Express creativity through cooking' },
+    { icon: '🚶', title: 'Take a Walk', description: 'Get some fresh air and movement' }
   ];
+
+  const productiveActivities = [
+    { icon: '🧺', title: 'Do Laundry', description: 'Get your clothes clean and organized' },
+    { icon: '📝', title: 'Complete Assignment', description: 'Finish your pending homework' },
+    { icon: '💼', title: 'Office Work', description: 'Tackle your work projects' },
+    { icon: '🧹', title: 'Clean House', description: 'Organize your living space' },
+    { icon: '📚', title: 'Study/Read', description: 'Learn something new today' },
+    { icon: '📧', title: 'Answer Emails', description: 'Clear your inbox' }
+  ];
+
+  const activities = isStressed ? stressedActivities : productiveActivities;
+  const headerTitle = isStressed ? '💭 Stress Relief' : '⚡ Productive Tasks';
+  const headerDescription = isStressed ? 'Calming activities for you' : 'Get things done today';
 
   return (
     <div className="h-full bg-gradient-to-br from-green-50 to-blue-50 overflow-y-auto">
@@ -20,8 +39,8 @@ const MoodJournal = ({ onBack }: MoodJournalProps) => {
         <div className="flex items-center mb-6">
           <button onClick={onBack} className="mr-4 text-2xl">←</button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">💭 Mood Journal</h1>
-            <p className="text-gray-600">Calming activities for you</p>
+            <h1 className="text-2xl font-bold text-gray-800">{headerTitle}</h1>
+            <p className="text-gray-600">{headerDescription}</p>
           </div>
         </div>
       </div>
