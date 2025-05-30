@@ -123,7 +123,7 @@ const MoodJournal = ({ onBack, mood, stressLevel, onTaskComplete, onJournalEntry
       </div>
 
       {/* Journal Entry */}
-      <div className="px-6 mt-8 mb-20">
+      <div className="px-6 mt-8 mb-32">
         <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
           <h3 className="text-lg font-bold text-gray-800 mb-4">How was your day?</h3>
           <textarea 

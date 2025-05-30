@@ -89,10 +89,10 @@ const Insights = ({ onBack, completedTasks, journalEntries, mood }: InsightsProp
       {/* Task Completion Chart */}
       {chartData.length > 0 && (
         <div className="px-6 mb-6">
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+          <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
             <h3 className="text-lg font-bold text-gray-800 mb-4">Daily Task Completion</h3>
-            <ChartContainer config={chartConfig} className="h-48">
-              <BarChart data={chartData}>
+            <ChartContainer config={chartConfig} className="h-48 w-full">
+              <BarChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 10 }}>
                 <XAxis dataKey="date" />
                 <YAxis />
                 <ChartTooltip content={<ChartTooltipContent />} />
@@ -106,10 +106,10 @@ const Insights = ({ onBack, completedTasks, journalEntries, mood }: InsightsProp
       {/* Mood Tracking Chart */}
       {moodData.length > 0 && (
         <div className="px-6 mb-6">
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+          <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
             <h3 className="text-lg font-bold text-gray-800 mb-4">Mood Tracking</h3>
-            <ChartContainer config={chartConfig} className="h-48">
-              <LineChart data={moodData}>
+            <ChartContainer config={chartConfig} className="h-48 w-full">
+              <LineChart data={moodData} margin={{ top: 10, right: 20, left: 10, bottom: 10 }}>
                 <XAxis dataKey="day" />
                 <YAxis domain={[1, 5]} />
                 <ChartTooltip content={<ChartTooltipContent />} />
@@ -127,7 +127,7 @@ const Insights = ({ onBack, completedTasks, journalEntries, mood }: InsightsProp
       )}
 
       {/* Recent Journal Entries */}
-      <div className="px-6 mb-20">
+      <div className="px-6 mb-32">
         <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
           <h3 className="text-lg font-bold text-gray-800 mb-4">Recent Journal Entries</h3>
           {journalEntries.length > 0 ? (
