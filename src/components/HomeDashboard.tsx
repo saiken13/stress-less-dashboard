@@ -1,25 +1,27 @@
 
 import React from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
+
+interface Task {
+  id: number;
+  task: string;
+  completed: boolean;
+}
 
 interface HomeDashboardProps {
   mood: string;
   stressLevel: number;
   onNavigate: (page: string) => void;
+  todaysTasks: Task[];
+  onToggleTask: (taskId: number) => void;
 }
 
-const HomeDashboard = ({ mood, stressLevel, onNavigate }: HomeDashboardProps) => {
+const HomeDashboard = ({ mood, stressLevel, onNavigate, todaysTasks, onToggleTask }: HomeDashboardProps) => {
   const tools = [
     { icon: '🧠', title: 'AI Planner', subtitle: 'Smart scheduling', page: 'ai-planner' },
     { icon: '💭', title: 'Mood Journal', subtitle: 'Track feelings', page: 'mood-journal' },
     { icon: '🔔', title: 'Smart Filter', subtitle: 'Manage notifications', page: 'smart-filter' },
     { icon: '🛡️', title: 'Burnout Shield', subtitle: 'Health prompts', page: 'burnout-shield' }
-  ];
-
-  const tasks = [
-    'Morning meditation (10 min)',
-    'Team meeting at 10 AM',
-    'Lunch break walk',
-    'Project review'
   ];
 
   const getStressColor = (level: number) => {
@@ -88,10 +90,16 @@ const HomeDashboard = ({ mood, stressLevel, onNavigate }: HomeDashboardProps) =>
       <div className="px-6 mb-20">
         <h2 className="text-lg font-bold text-gray-800 mb-4">📅 Today's Focus</h2>
         <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
-          {tasks.map((task, index) => (
-            <div key={index} className="flex items-center space-x-3 py-2">
-              <div className="w-4 h-4 border-2 border-blue-300 rounded"></div>
-              <span className="text-gray-800 text-sm">{task}</span>
+          {todaysTasks.map((task) => (
+            <div key={task.id} className="flex items-center space-x-3 py-2">
+              <Checkbox
+                checked={task.completed}
+                onCheckedChange={() => onToggleTask(task.id)}
+                className="w-4 h-4"
+              />
+              <span className={`text-gray-800 text-sm ${task.completed ? 'line-through text-gray-400' : ''}`}>
+                {task.task}
+              </span>
             </div>
           ))}
         </div>
